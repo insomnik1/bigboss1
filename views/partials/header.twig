@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="/assets/css/header.css">
+
+
+<header>
+	<div class="enterprise">
+		<img src="/assets/images/tux.png" alt="image">
+		<h1>Mon Entreprise
+			{% if boss %}
+				{{ boss.firstName }}
+				{{ boss.lastName }}
+				{% elseif employee %}
+
+			{% endif %}
+		</h1>
+	</div>
+	<button id="burger-menu" class="burger-menu" aria-label="Menu" aria-expanded="false">
+		<img src="/assets/images/burger.png" alt="Ouvrir le menu">
+	</button>
+	<div class="navigation" id="navigation-links">
+		<nav>
+			<ul>
+				{% if boss %}
+					<li>
+						<a href="/admin">Accueil</a>
+					</li>
+					<li>
+						<a href="/employees/addEmployee">Ajouter un employé</a>
+					</li>
+
+					<li>
+						<a href="/computers/add">Ajouter un ordinateur</a>
+
+					</li>
+					<li>
+						<a href="/computers">Voir l'inventaire des ordinateurs</a>
+
+					</li>
+					<li>
+						<a href="/logout">Deconnexion</a>
+					</li>
+				{% elseif employee %}
+					<li>
+						<a href="/employees/profile">Mon profil</a>
+					</li>
+
+					<li>
+						<a href="/employees/logoutEmployee">Deconnexion</a>
+					</li>
+				{% else %}
+					<li>
+						<a href="/loginBoss">Connexion Entreprise</a>
+						<a href="/employees/loginEmployee">Connexion employé</a>
+						<a href="/registerBoss">Rejoignez nous</a>
+					</li>
+				{% endif %}
+			</ul>
+		</nav>
+	</div>
+
+</header>

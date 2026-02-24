@@ -1,0 +1,56 @@
+{% extends "layouts/base.twig" %}
+
+{% block main %}
+	<div class="inventory">
+		<h2>Inventaire des Ordinateurs</h2>
+		<a class="add" href="/computers/add">Ajouter un ordinateur</a>
+		<table>
+			<thead>
+				<tr>
+					<th>Adresse MAC</th>
+					<th>Description</th>
+					<th>Assigné à</th>
+					<th>Statut</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for computer in computers %}
+					<tr>
+						<td>{{ computer.mac }}</td>
+						<td>{{ computer.description }}</td>
+						<td>
+							{% if computer.employee %}
+								{{ computer.employee.firstName }}
+								{{ computer.employee.lastName }}
+							{% else %}
+								<span>Non assigné</span>
+							{% endif %}
+						</td>
+						<td>
+							{% if computer.isBroken %}
+								<span class="status-broken">En Panne</span>
+							{% else %}
+								<span class="status-ok">Opérationnel</span>
+							{% endif %}
+						</td>
+						<td>
+							<a class="modify" href="/computers/update/{{ computer.id }}">Modifier</a>
+							<a class="delete" href="/computers/delete/{{ computer.id }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet ordinateur ?');">Supprimer</a>
+							{% if computer.isBroken %}
+								<form action="/computers/repair/{{ computer.id }}" method="POST" style="display: inline;">
+									<button type="submit" class="btn-repair">Réparer</button>
+								</form>
+							{% endif %}
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="5" class="text-center">Aucun ordinateur dans l'inventaire.</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}

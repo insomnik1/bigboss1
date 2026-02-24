@@ -1,0 +1,10 @@
+model Computer {
+    id Int @id @default(autoincrement())
+    mac String @unique @db.VarChar(20)
+    description String?
+    employee Employee? @relation("EmployeeComputers",fields: [employeeId], references: [id])
+    employeeId Int?
+    boss Boss @relation("BossComputers",fields: [bossId], references: [id])
+    bossId Int
+    isBroken Boolean @default(false)
+}

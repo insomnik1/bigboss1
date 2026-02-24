@@ -1,0 +1,26 @@
+{% extends "/layouts/base.twig" %}
+
+{% block style %}
+	<link rel="stylesheet" href="/assets/css/registerBoss.css">
+{% endblock %}
+
+{% block main %}
+	<section>
+		<h2>Connectez vous</h2>
+		<div class="register-container">
+			<form action="/loginBoss" method="POST">
+				<div>
+					<label for="siret">Siret</label>
+					<input type="text" name="siret" id="siret">
+				</div>
+				<div>
+					<label for="password">Password</label>
+					<input type="password" name="password" id="password">
+				</div>
+				<div class="form-actions">
+					<button>Envoyer</button>
+				</div>
+			</form>
+		</div>
+	</section>
+{% endblock %}

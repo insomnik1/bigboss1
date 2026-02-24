@@ -1,0 +1,40 @@
+{% extends "layouts/base.twig" %}
+
+
+{% block main %}
+
+	<div class="add-computer">
+		<h2>
+			{% if computer is defined and computer.id %}
+				Modifier l'ordinateur
+			{% else %}
+				Ajouter un ordinateur à l'inventaire
+			{% endif %}
+		</h2>
+		{% if error is defined %}
+			<div class="alert alert-danger">{{ error }}</div>
+		{% endif %}
+		<div class="computer-add">
+			<form method="POST" action="{% if computer is defined and computer.id %}/computers/update/{{ computer.id }}{% else %}/computers/add{% endif %}">
+				<div>
+					<label for="mac" class="form-label">Adresse MAC</label>
+					<input type="text" class="form-control" id="mac" name="mac" value="{{ computer.mac | default('') }}" required>
+				</div>
+				<div>
+					<label for="description" class="form-label">Description</label>
+					<input type="text" class="form-control" id="description" name="description" value="{{ computer.description | default('') }}">
+				</div>
+				<div class="form-actions">
+					<button type="submit" class="modify">
+						{% if computer is defined and computer.id %}
+							Enregistrer les modifications
+						{% else %}
+							Ajouter l'ordinateur
+						{% endif %}
+					</button>
+				</div>
+				<a href="/computers" class="add">Annuler</a>
+			</form>
+		</div>
+	</div>
+{% endblock %}

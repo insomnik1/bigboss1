@@ -1,0 +1,67 @@
+{% extends "layouts/base.twig" %}
+{% block style %}
+	<link rel="stylesheet" href="/assets/css/base.css">
+{% endblock %}
+
+{% block main %}
+
+
+	<div class="profile">
+
+		<h1>
+
+			{% if boss %}
+				{{ boss.firstName }}
+			{% elseif employee %}
+				{{ employee.firstName }}
+				{{ employee.lastName }}
+			{% endif %}
+		</h1>
+		<article class="avatar">
+			{% if employee.photo %}
+				<img src="{{ employee.photo|replace({'publics/': '/'}) }}" alt="Avatar">
+			{% else %}
+				<img src="/assets/images/default.jpeg" alt="Avatar par défaut">
+			{% endif %}
+		</article>
+
+		<p>Mail :
+			{{employee.mail}}
+		</p>
+		<p>Age :
+			{{employee.age}}
+		</p>
+		<p>Genre :
+			{{employee.genre}}
+		</p>
+		<div class="computer-status">
+			<p>Ordinateur associé :
+				{% if employee.computers is not empty %}
+
+					{% for computer in employee.computers %}
+						<p>MAC :
+							{{ computer.mac }}
+						</p>
+						<div>
+							{% if computer.isBroken %}
+								<span class="status-broken">Panne déclarée</span>
+							{% else %}
+								<form action="/employees/report-broken/{{ computer.id }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir déclarer une panne sur cet ordinateur ?');">
+									<button type="submit" class="btn-broken">Déclarer une panne</button>
+								</form>
+							{% endif %}
+						</div>
+					{% endfor %}
+
+				{% else %}
+					Aucun ordinateur assigné
+				{% endif %}
+			</p>
+		</div>
+
+		<div class="action">
+			<a href="/employees/updateemployee/{{employee.id}}" class="modify">Modifier</a>
+		</div>
+
+
+	{% endblock %}

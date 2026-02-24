@@ -1,0 +1,97 @@
+{% extends "/layouts/base.twig" %}
+
+{% block style %}
+	<link rel="stylesheet" href="/assets/css/registerBoss.css">
+{% endblock %}
+
+{% block main %}
+	<section id="registerboss">
+		<h2>Inscription</h2>
+		<div class="register-container">
+			<form action="/registerBoss" method="POST" enctype="multipart/form-data">
+				<div>
+					<label for="siret">Siret de l entreprise :
+					</label>
+					<input type="text" id="siret" name="siret">
+					{% if duplicateSiret %}
+						<p>{{ duplicateSiret }}</p>
+					{% endif %}
+					{% if errors.siret %}
+						<p>{{ errors.siret }}</p>
+					{% endif %}
+
+				</div>
+				<div>
+					<label for="firstName">Nom :
+					</label>
+					<input type="text" id="firstName" name="firstName">
+					{% if errors.lastName %}
+						<p>{{errors.lastName}}</p>
+					{% endif %}
+				</div>
+				<div>
+					<label for="backgroundImage" class="custom-file-upload">Image de votre entreprise</label>
+					<input type="file" id="backgroundImage" name="backgroundImage">
+					{# Aperçu de l'image de fond #}
+					<img id="bgImagePreview" src="#" alt="Aperçu de l'image de fond" style="display: none; max-width: 200px; max-height: 150px; margin-top: 10px;">
+					{# Fin de l'aperçu de l'image de fond #}
+				</div>
+
+				<div>
+					<label for="password">Votre mot de passe :
+					</label>
+					<input type="password" id="password" name="password">
+					{% if errors.password %}
+						<p>{{errors.password}}</p>
+					{% endif %}
+				</div>
+				<div>
+					<label for="confirm">Confirmez le mot de passe :
+					</label>
+					<input type="password" id="confirm" name="confirm">
+					{% if confirmError %}
+						<p>{{confirmError}}</p>
+					{% endif %}
+				</div>
+				<div class="form-actions">
+					<button>Envoyer</button>
+				</div>
+			</form>
+		</div>
+		<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const bgImageInput = document.getElementById('backgroundImage');
+            const bgImagePreview = document.getElementById('bgImagePreview');
+
+            // Fonction pour afficher l'aperçu de l'image
+            function showBgImagePreview(file) {
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        bgImagePreview.src = e.target.result;
+                        bgImagePreview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    bgImagePreview.src = '#';
+                    bgImagePreview.style.display = 'none';
+                }
+            }
+
+            // Écouter les changements sur l'input backgroundImage
+            bgImageInput.addEventListener('change', function(event) {
+                showBgImagePreview(event.target.files[0]);
+            });
+
+            // Si une image de fond existe déjà (en mode modification ou si déjà définie), l'afficher
+            // Ce bloc n'est pas strictement nécessaire pour la création, mais utile si la page est aussi utilisée pour modifier
+            // {% if boss and boss.backgroundImage %}
+            //     if (bgImagePreview.src === '#' || !bgImagePreview.src.includes('http')) {
+            //         bgImagePreview.src = "{{ boss.backgroundImage|replace({'publics/': '/'}) }}";
+            //         bgImagePreview.style.display = 'block'; // CORRIGÉ
+            //     }
+            // {% endif %}
+        });
+    </script>
+</section>
+{% endblock %}

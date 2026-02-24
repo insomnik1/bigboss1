@@ -1,0 +1,85 @@
+{% extends "layouts/base.twig" %}
+
+{% block style %}
+	<link rel="stylesheet" href="/assets/css/base.css">
+{% endblock %}
+
+{% block main %}
+
+	{% set has_broken_computer = false %}
+	{% for employee in boss.employees %}
+		{% for computer in employee.computers %}
+			{% if computer.isBroken %}
+				{% set has_broken_computer = true %}
+			{% endif %}
+		{% endfor %}
+
+	{% endfor %}
+
+	{% if has_broken_computer %}
+		<div class="broken-alert">
+			<strong>ALERTE :</strong>
+			Un ou plusieurs ordinateurs sont déclarés en panne.
+		</div>
+	{% endif %}
+
+	<div>
+		{{errorRequest}}
+	</div>
+
+
+	{# <h2>Liste des Employés</h2> #}
+	<h2 class="glass-h2">Liste des Employés</h2>
+
+	<div class="employee-vignet">
+		{% for employee in boss.employees %}
+			<div class="vignet">
+				<article class="container">
+					<article class="info">
+						<h3>Nom :
+							{{employee.firstName}}
+							{{employee.lastName}}
+						</h3>
+						<p>Mail :
+							{{employee.mail}}
+						</p>
+						<p>Age :
+							{{employee.age}}
+						</p>
+						<p>Genre :
+							{{employee.genre}}
+						</p>
+						<p>Ordinateur associé :
+							{% if employee.computers is not empty %}
+
+								{% for computer in employee.computers %}
+									<p>MAC :
+										{{ computer.mac }}
+										{% if computer.isBroken %}
+											<span class="broken-indicator">(En Panne)</span>
+										{% endif %}
+									</p>
+								{% endfor %}
+
+							{% else %}
+								Aucun ordinateur assigné
+							{% endif %}
+						</p>
+					</article>
+					<article class="avatar">
+						{% if employee.photo %}
+							<img src="{{ employee.photo|replace({'publics/': '/'}) }}" alt="Avatar">
+						{% else %}
+							<img src="/assets/images/default.jpeg" alt="Avatar par défaut">
+						{% endif %}
+					</article>
+				</article>
+				<div class="action">
+					<a href="/employees/updateemployee/{{employee.id}}" class="modify">Modifier</a>
+					<a href="/removeemployee/{{employee.id}}" class="delete">Supprimer</a>
+				</div>
+
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

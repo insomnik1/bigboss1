@@ -1,0 +1,30 @@
+{
+  "name": "boss",
+  "version": "1.0.0",
+  "description": "rh",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "insomnik",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.16.2",
+    "bcrypt": "^6.0.0",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "maplibre-gl": "^5.8.0",
+    "multer": "^2.0.2",
+    "nodemailer": "^7.0.6",
+    "prisma": "^6.16.2",
+    "twig": "^1.17.1"
+  },
+  "prisma": {
+    "schema": "./prisma"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

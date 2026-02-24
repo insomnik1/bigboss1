@@ -1,0 +1,24 @@
+.add-employee {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-add{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-actions {
+
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 25px;
+}
+
+.btn{
+    color: rgb(116, 116, 193);
+}
