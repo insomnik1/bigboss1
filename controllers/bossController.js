@@ -56,11 +56,13 @@ exports.postBoss = async (req, res) => {
     if (error.code == "P2002") {
       res.render("pages/registerBoss.twig", {
         duplicateSiret: "Siret deja utilisé",
+        old_input: req.body,
       });
     } else {
       res.render("pages/registerBoss.twig", {
         errors: error.details,
         confirmError: error.confirm ? error.confirm : null,
+        old_input: req.body,
       });
     }
   }

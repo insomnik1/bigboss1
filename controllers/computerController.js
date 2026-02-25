@@ -88,6 +88,7 @@ exports.postComputer = async (req, res) => {
     res.render("pages/addComputer.twig", {
       error: errorMessage,
       boss: boss,
+      old_input: req.body,
     });
   }
 };

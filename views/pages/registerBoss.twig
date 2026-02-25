@@ -12,7 +12,7 @@
 				<div>
 					<label for="siret">Siret de l entreprise :
 					</label>
-					<input type="text" id="siret" name="siret">
+					<input type="text" id="siret" name="siret" value="{{ old_input.siret | default('') }}">
 					{% if duplicateSiret %}
 						<p>{{ duplicateSiret }}</p>
 					{% endif %}
@@ -24,7 +24,7 @@
 				<div>
 					<label for="firstName">Nom :
 					</label>
-					<input type="text" id="firstName" name="firstName">
+					<input type="text" id="firstName" name="firstName" value="{{ old_input.firstName | default('') }}">
 					{% if errors.lastName %}
 						<p>{{errors.lastName}}</p>
 					{% endif %}
@@ -40,7 +40,7 @@
 				<div>
 					<label for="password">Votre mot de passe :
 					</label>
-					<input type="password" id="password" name="password">
+					<input type="password" id="password" name="password" value="{{ old_input.password | default('') }}">
 					{% if errors.password %}
 						<p>{{errors.password}}</p>
 					{% endif %}
@@ -48,7 +48,7 @@
 				<div>
 					<label for="confirm">Confirmez le mot de passe :
 					</label>
-					<input type="password" id="confirm" name="confirm">
+					<input type="password" id="confirm" name="confirm" value="{{ old_input.confirm | default('') }}">
 					{% if confirmError %}
 						<p>{{confirmError}}</p>
 					{% endif %}

@@ -91,12 +91,14 @@ exports.postEmployee = async (req, res) => {
       res.render("pages/addEmployee.twig", {
         duplicateMail: "Mail deja utilisé",
         boss: boss,
+        old_input: req.body,
       });
     } else {
       res.render("pages/addEmployee.twig", {
         errors: error.details || {},
         confirmError: error.confirm || null,
         boss: boss,
+        old_input: req.body,
       });
     }
   }
@@ -265,6 +267,7 @@ exports.updateEmployee = async (req, res) => {
       employee: employee,
       computers: availableComputers,
       boss: employee.boss,
+      old_input: req.body,
     });
   }
 };

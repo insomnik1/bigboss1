@@ -22,13 +22,13 @@
 		<div class="add-employee">
 			<form action="{{ employee ? '/employees/updateemployee/' ~ employee.id : '/employees/addEmployee' }}" class="form-add" method="post" enctype="multipart/form-data">
 				<label for="firstName">Nom</label>
-				<input type="text" id="firstName" name="firstName" value="{% if employee.firstName %}{{ employee.firstName }}{% endif %}">
+				<input type="text" id="firstName" name="firstName" value="{{ old_input.firstName | default(employee.firstName | default('')) }}">
 				<label for="lastName">Prénom</label>
-				<input type="text" id="lastName" name="lastName" value="{% if employee.lastName %}{{ employee.lastName }}{% endif %}">
+				<input type="text" id="lastName" name="lastName" value="{{ old_input.lastName | default(employee.lastName | default('')) }}">
 				<label for="age">Age</label>
-				<input type="text" id="age" name="age" value="{% if employee.age %}{{ employee.age }}{% endif %}">
+				<input type="text" id="age" name="age" value="{{ old_input.age | default(employee.age | default('')) }}">
 				<label for="genre">Genre</label>
-				<input type="text" id="genre" name="genre" value="{% if employee.genre %}{{ employee.genre }}{% endif %}">
+				<input type="text" id="genre" name="genre" value="{{ old_input.genre | default(employee.genre | default('')) }}">
 				<label for="photo" class="custom-file-upload">Choisir une photo</label>
 				<input
 				type="file" id="photo" name="photo">
@@ -37,7 +37,7 @@
 				id="photoPreview" src="#" alt="Aperçu de la photo" style="display: none; max-width: 150px; max-height: 150px; margin-top: 10px;">
 				{# Fin de l'aperçu de l'image #}
 				<label for="email">Email</label>
-				<input type="mail" id="mail" name="mail" value="{% if employee.mail %}{{ employee.mail }}{% endif %}">
+				<input type="mail" id="mail" name="mail" value="{{ old_input.mail | default(employee.mail | default('')) }}">
 				<label for="password">
 					{% if employee %}
 						Nouveau mot de passe (laisser vide pour ne pas changer)
@@ -45,13 +45,13 @@
 						Mot de passe
 					{% endif %}
 				</label>
-				<input type="password" id="password" name="password">
+				<input type="password" id="password" name="password" value="{{ old_input.password | default('') }}">
 				{% if errors.password %}
 					<p>{{errors.password}}</p>
 				{% endif %}
 				<label for="confirm">Confirmez le mot de passe :
 				</label>
-				<input type="password" id="confirm" name="confirm">
+				<input type="password" id="confirm" name="confirm" value="{{ old_input.confirm | default('') }}">
 				{% if confirmError %}
 					<p>{{confirmError}}</p>
 				{% endif %}

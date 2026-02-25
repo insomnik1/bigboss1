@@ -18,11 +18,11 @@
 			<form method="POST" action="{% if computer is defined and computer.id %}/computers/update/{{ computer.id }}{% else %}/computers/add{% endif %}">
 				<div>
 					<label for="mac" class="form-label">Adresse MAC</label>
-					<input type="text" class="form-control" id="mac" name="mac" value="{{ computer.mac | default('') }}" required>
+					<input type="text" class="form-control" id="mac" name="mac" value="{{ old_input.mac | default(computer.mac | default('')) }}" required>
 				</div>
 				<div>
 					<label for="description" class="form-label">Description</label>
-					<input type="text" class="form-control" id="description" name="description" value="{{ computer.description | default('') }}">
+					<input type="text" class="form-control" id="description" name="description" value="{{ old_input.description | default(computer.description | default('')) }}">
 				</div>
 				<div class="form-actions">
 					<button type="submit" class="modify">
